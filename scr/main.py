@@ -2,6 +2,8 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from PIL import Image
 import google.generativeai as genai
 import io
+import os
+
 
 def remove_asterick(text):
     text = text.replace('*', '')
@@ -11,8 +13,9 @@ def remove_asterick(text):
 app = FastAPI()
 
 # Configure Gemini API
-GOOGLE_API_KEY = "AIzaSyAQMVf1zQfJ4ZTPaPMwii_kNLtH3qUg1ck"
-genai.configure(api_key=GOOGLE_API_KEY)
+
+KEY = os.getenv("API")
+genai.configure(api_key=KEY)
 model = genai.GenerativeModel('gemini-1.5-pro')
 
 # Define the analysis prompt
